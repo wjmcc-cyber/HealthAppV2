@@ -6,11 +6,13 @@ import AppButton from "@/components/ui/AppButton";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { ChevronLeftIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useUnits } from "@/lib/units";
 
 const STEPS = ["Goal", "Basics", "Experience", "Equipment", "Preview"];
 
 export default function OnboardingPage() {
   const router = useRouter();
+  const { system, setSystem } = useUnits();
   const [currentStep, setCurrentStep] = useState(0);
 
   // States for onboarding tracking
@@ -79,19 +81,41 @@ export default function OnboardingPage() {
         {currentStep === 1 && (
           <div className="animate-in fade-in slide-in-from-right-4 duration-500">
             <SectionHeader title="Let's get the basics" subtitle="Used to calculate your initial metabolic baseline." />
-            <div className="flex flex-col gap-6 mt-6">
+            
+            <div className="flex bg-secondary/50 p-1 rounded-full mb-6 mt-4 w-fit border border-white/5">
+              <button 
+                onClick={() => setSystem("metric")}
+                className={cn(
+                  "px-4 py-1.5 rounded-full text-xs font-bold transition-all tap-highlight-transparent",
+                  system === "metric" ? "bg-white text-black shadow-sm" : "text-muted-foreground hover:text-white"
+                )}
+              >
+                Metric
+              </button>
+              <button 
+                onClick={() => setSystem("imperial")}
+                className={cn(
+                  "px-4 py-1.5 rounded-full text-xs font-bold transition-all tap-highlight-transparent",
+                  system === "imperial" ? "bg-white text-black shadow-sm" : "text-muted-foreground hover:text-white"
+                )}
+              >
+                Imperial
+              </button>
+            </div>
+
+            <div className="flex flex-col gap-6">
               <div className="flex flex-col gap-2">
-                <label className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Age</label>
-                <input type="number" placeholder="28" className="bg-card border border-border rounded-xl p-4 text-white font-semibold text-lg focus:border-primary focus:outline-none transition-colors" />
+                <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider ml-1">Age</label>
+                <input type="number" placeholder="28" className="bg-card border border-border rounded-2xl p-4 text-white font-display text-2xl focus:border-primary focus:outline-none transition-colors" />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex flex-col gap-2">
-                  <label className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Height (cm)</label>
-                  <input type="number" placeholder="180" className="bg-card border border-border rounded-xl p-4 text-white font-semibold text-lg focus:border-primary focus:outline-none transition-colors" />
+                  <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider ml-1">Height ({system === "metric" ? "cm" : "in"})</label>
+                  <input type="number" placeholder={system === "metric" ? "180" : "71"} className="bg-card border border-border rounded-2xl p-4 text-white font-display text-2xl focus:border-primary focus:outline-none transition-colors" />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <label className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Weight (kg)</label>
-                  <input type="number" placeholder="82.5" className="bg-card border border-border rounded-xl p-4 text-white font-semibold text-lg focus:border-primary focus:outline-none transition-colors" />
+                  <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider ml-1">Weight ({system === "metric" ? "kg" : "lbs"})</label>
+                  <input type="number" placeholder={system === "metric" ? "82.5" : "182"} className="bg-card border border-border rounded-2xl p-4 text-white font-display text-2xl focus:border-primary focus:outline-none transition-colors" />
                 </div>
               </div>
             </div>

@@ -5,7 +5,7 @@ import SectionHeader from "@/components/ui/SectionHeader";
 import WorkoutExerciseCard from "@/components/ui/WorkoutExerciseCard";
 import AppButton from "@/components/ui/AppButton";
 import { MOCK_TODAY_WORKOUT } from "@/data/mockData";
-import { PlayIcon, CheckCircleIcon, CalendarIcon } from "lucide-react";
+import { PlayIcon, CheckCircleIcon, CalendarIcon, DumbbellIcon } from "lucide-react";
 
 export default function WorkoutPage() {
   const [completedExercises, setCompletedExercises] = useState<string[]>([]);
@@ -33,35 +33,42 @@ export default function WorkoutPage() {
         }
       />
 
-      <div className="mb-6 mt-2">
-        <h1 className="text-3xl font-extrabold text-white tracking-tight leading-none mb-1">
+      <div className="mb-6 mt-2 relative z-10">
+        <h1 className="text-5xl font-display uppercase font-extrabold text-white tracking-tight leading-none mb-2 drop-shadow-md">
           {MOCK_TODAY_WORKOUT.title}
         </h1>
-        <p className="text-muted-foreground font-medium flex items-center gap-2">
+        <p className="text-primary font-bold flex items-center gap-2 uppercase tracking-wide text-xs">
           <span>{MOCK_TODAY_WORKOUT.durationMinutes} mins</span>
-          <span className="w-1 h-1 rounded-full bg-border" />
+          <span className="w-1 h-1 rounded-full bg-primary/50" />
           <span>{MOCK_TODAY_WORKOUT.exercises.length} exercises</span>
         </p>
       </div>
 
       {!workoutStarted ? (
-        <div className="flex-1 flex flex-col justify-center gap-6 animate-in fade-in duration-500">
-          <div className="bg-card/50 border border-border rounded-3xl p-6 text-center">
-             <h3 className="text-lg font-bold text-white mb-2">Ready to crush it?</h3>
-             <p className="text-sm text-muted-foreground mb-6">Make sure to warm up your rotator cuffs before starting heavy presses.</p>
-             <AppButton size="lg" fullWidth onClick={() => setWorkoutStarted(true)}>
+        <div className="flex-1 flex flex-col justify-center gap-6 animate-in fade-in duration-500 relative z-10">
+          <div className="bg-white border-none rounded-[2rem] p-6 text-center shadow-xl relative overflow-hidden">
+             {/* Glow Accent inside card */}
+             <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-primary/20 rounded-full blur-2xl pointer-events-none" />
+             
+             <h3 className="text-2xl font-display uppercase font-bold text-black mb-2">Ready to crush it?</h3>
+             <p className="text-sm text-black/60 font-semibold mb-6">Make sure to warm up your rotator cuffs before starting heavy presses.</p>
+             <AppButton size="lg" fullWidth onClick={() => setWorkoutStarted(true)} className="shadow-[0_0_15px_rgba(56,242,205,0.4)]">
                <PlayIcon size={20} className="mr-2" /> Start Workout
              </AppButton>
           </div>
           
           <div>
-            <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-3 px-1">Exercise Preview</h4>
+            <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-3 px-1 text-white">Exercise Preview</h4>
             <div className="flex gap-3 overflow-x-auto pb-4 snap-x hide-scrollbar">
               {MOCK_TODAY_WORKOUT.exercises.map(ex => (
-                <div key={ex.id} className="snap-start shrink-0 w-32 bg-secondary/30 border border-white/5 rounded-2xl p-3 flex flex-col gap-2">
-                   <div className="w-full aspect-video bg-black/40 rounded-xl mb-1" />
-                   <p className="text-xs font-bold text-white line-clamp-2 leading-tight">{ex.name}</p>
-                   <p className="text-[10px] text-muted-foreground">{ex.sets} × {ex.reps}</p>
+                <div key={ex.id} className="snap-start shrink-0 w-36 bg-white border border-white rounded-[1.5rem] p-3 flex flex-col gap-2 shadow-lg relative overflow-hidden">
+                   <div className="absolute -top-4 -right-4 w-12 h-12 bg-primary/10 rounded-full blur-xl pointer-events-none" />
+                   <div className="w-full aspect-video bg-black/5 rounded-xl mb-1 flex items-center justify-center relative">
+                     {/* Image Placeholder with subtle icon */}
+                      <DumbbellIcon size={24} className="text-black/10" />
+                   </div>
+                   <p className="text-sm font-bold text-black line-clamp-2 leading-tight uppercase font-display">{ex.name}</p>
+                   <p className="text-[10px] text-black/50 font-bold uppercase tracking-wider">{ex.sets} set × {ex.reps}</p>
                 </div>
               ))}
             </div>
