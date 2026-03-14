@@ -1,5 +1,5 @@
-import type { Metadata } from "next";
-import { Inter, Oswald } from "next/font/google"; // Adding Oswald based on Dribbble shot aesthetic
+import type { Metadata, Viewport } from "next";
+import { Inter, Oswald } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import { UnitsProvider } from "@/lib/units";
@@ -16,8 +16,15 @@ const oswald = Oswald({
 
 export const metadata: Metadata = {
   title: "PhysiqueAI - Your AI Body Coach",
-  description: "AI fitness app for body composition, workouts, and nutrition.",
-  viewport: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0", // Prevents zooming on mobile
+  description:
+    "AI-powered fitness app for body composition scanning, personalized workouts, nutrition tracking, and physique prediction.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({
@@ -27,7 +34,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${oswald.variable} font-sans antialiased bg-black text-foreground`}>
+      <body
+        className={`${inter.variable} ${oswald.variable} font-sans antialiased bg-black text-foreground`}
+      >
         <UnitsProvider>
           {/* Mobile Wrapper for Desktop Viewing */}
           <div className="mx-auto flex flex-col min-h-screen max-w-md bg-background shadow-2xl relative overflow-hidden">

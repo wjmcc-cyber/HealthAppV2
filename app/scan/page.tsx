@@ -4,8 +4,15 @@ import { useState } from "react";
 import SectionHeader from "@/components/ui/SectionHeader";
 import ScanStepCard from "@/components/ui/ScanStepCard";
 import AppButton from "@/components/ui/AppButton";
-import { MOCK_SCAN_RESULT } from "@/data/mockData";
-import { FocusIcon, InfoIcon, ShieldCheckIcon, RotateCcwIcon } from "lucide-react";
+import { MOCK_SCAN_RESULT, MOCK_SCAN_HISTORY } from "@/data/mockData";
+import {
+  FocusIcon,
+  InfoIcon,
+  ShieldCheckIcon,
+  RotateCcwIcon,
+  UploadIcon,
+  ClockIcon,
+} from "lucide-react";
 
 type ScanState = "IDLE" | "CAPTURING" | "ANALYZING" | "RESULTS";
 
@@ -23,14 +30,12 @@ export default function ScanPage() {
   const handleStartCapture = (stepId: number) => {
     setActiveStep(stepId);
     setScanState("CAPTURING");
-    
-    // Simulate capture process
+
     setTimeout(() => {
-      setCompletedSteps(prev => [...prev, stepId]);
-      
+      setCompletedSteps((prev) => [...prev, stepId]);
+
       if (stepId === 2) {
         setScanState("ANALYZING");
-        // Simulate analysis
         setTimeout(() => setScanState("RESULTS"), 2500);
       } else {
         setScanState("IDLE");
@@ -47,13 +52,18 @@ export default function ScanPage() {
 
   return (
     <div className="flex flex-col min-h-full px-4 pt-6 pb-6">
-      <SectionHeader 
-        title="Body Scan" 
-        subtitle="AI-powered physique analysis" 
+      <SectionHeader
+        title="Body Scan"
+        subtitle="AI-powered physique analysis"
         action={
-          <button onClick={resetScan} className="p-2 text-muted-foreground hover:text-white tap-highlight-transparent hidden">
-             <RotateCcwIcon size={20} />
-          </button>
+          completedSteps.length > 0 ? (
+            <button
+              onClick={resetScan}
+              className="p-2 text-muted-foreground hover:text-white tap-highlight-transparent"
+            >
+              <RotateCcwIcon size={20} />
+            </button>
+          ) : undefined
         }
       />
 
@@ -61,22 +71,41 @@ export default function ScanPage() {
         <div className="animate-in fade-in zoom-in-95 duration-500 flex flex-col gap-6">
           <div className="bg-primary/10 border border-primary/20 rounded-3xl p-6 text-center">
             <ShieldCheckIcon size={40} className="text-primary mx-auto mb-3" />
-            <h2 className="text-2xl font-bold text-white mb-2">Analysis Complete</h2>
-            <p className="text-sm text-primary font-medium">{new Date(MOCK_SCAN_RESULT.date).toLocaleDateString()}</p>
+            <h2 className="text-2xl font-bold text-white mb-2">
+              Analysis Complete
+            </h2>
+            <p className="text-sm text-primary font-medium">
+              {new Date(MOCK_SCAN_RESULT.date).toLocaleDateString()}
+            </p>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-card border border-border rounded-2xl p-5 text-center">
-              <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">Body Fat</h3>
-              <p className="text-3xl font-extrabold text-white">{MOCK_SCAN_RESULT.bodyFatPercentage}<span className="text-lg text-muted-foreground">%</span></p>
+              <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">
+                Body Fat
+              </h3>
+              <p className="text-3xl font-extrabold text-white">
+                {MOCK_SCAN_RESULT.bodyFatPercentage}
+                <span className="text-lg text-muted-foreground">%</span>
+              </p>
             </div>
             <div className="bg-card border border-border rounded-2xl p-5 text-center">
-              <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">Lean Mass</h3>
-              <p className="text-3xl font-extrabold text-white">{MOCK_SCAN_RESULT.leanMassKg}<span className="text-lg text-muted-foreground">kg</span></p>
+              <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">
+                Lean Mass
+              </h3>
+              <p className="text-3xl font-extrabold text-white">
+                {MOCK_SCAN_RESULT.leanMassKg}
+                <span className="text-lg text-muted-foreground">kg</span>
+              </p>
             </div>
             <div className="bg-card border border-border rounded-2xl p-5 text-center col-span-2">
-              <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">Symmetry Score</h3>
-              <p className="text-3xl font-extrabold text-white">{MOCK_SCAN_RESULT.symmetryScore}<span className="text-lg text-muted-foreground">/100</span></p>
+              <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">
+                Symmetry Score
+              </h3>
+              <p className="text-3xl font-extrabold text-white">
+                {MOCK_SCAN_RESULT.symmetryScore}
+                <span className="text-lg text-muted-foreground">/100</span>
+              </p>
             </div>
           </div>
 
@@ -87,8 +116,39 @@ export default function ScanPage() {
               {MOCK_SCAN_RESULT.postureNotes}
             </p>
           </div>
-          
-          <AppButton href="/dashboard" fullWidth className="mt-4">
+
+          {/* Scan History */}
+          {MOCK_SCAN_HISTORY.length > 1 && (
+            <div>
+              <div className="flex items-center gap-2 mb-3">
+                <ClockIcon size={14} className="text-muted-foreground" />
+                <h3 className="text-sm font-bold text-white">Scan History</h3>
+              </div>
+              <div className="flex gap-3 overflow-x-auto pb-2">
+                {MOCK_SCAN_HISTORY.map((scan) => (
+                  <div
+                    key={scan.id}
+                    className="shrink-0 bg-card/50 border border-border rounded-2xl p-3 min-w-[140px]"
+                  >
+                    <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-wider mb-2">
+                      {new Date(scan.date).toLocaleDateString("en", {
+                        month: "short",
+                        day: "numeric",
+                      })}
+                    </p>
+                    <p className="text-sm font-bold text-white">
+                      {scan.bodyFatPercentage}% BF
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {scan.leanMassKg}kg lean
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <AppButton href="/dashboard" fullWidth className="mt-2">
             Back to Dashboard
           </AppButton>
         </div>
@@ -97,8 +157,12 @@ export default function ScanPage() {
       {scanState === "ANALYZING" && (
         <div className="flex-1 flex flex-col items-center justify-center text-center animate-in fade-in duration-500">
           <div className="w-24 h-24 border-4 border-secondary border-t-primary rounded-full animate-spin mb-6" />
-          <h2 className="text-2xl font-bold text-white mb-2">Analyzing Physics...</h2>
-          <p className="text-muted-foreground">Calculating body fat, lean mass, and skeletal symmetry.</p>
+          <h2 className="text-2xl font-bold text-white mb-2">
+            Analyzing Physique...
+          </h2>
+          <p className="text-muted-foreground">
+            Calculating body fat, lean mass, and skeletal symmetry.
+          </p>
         </div>
       )}
 
@@ -128,9 +192,18 @@ export default function ScanPage() {
               onStart={() => handleStartCapture(step.id)}
             />
           ))}
-          
-          <div className="mt-6 p-4 bg-accent/10 border border-accent/20 rounded-2xl text-accent/90 text-sm text-center font-medium">
-            For best results, wear tight-fitting clothing and ensure good lighting.
+
+          {/* Upload Option */}
+          <button className="mt-2 bg-card/30 border border-border rounded-2xl p-4 flex items-center justify-center gap-3 tap-highlight-transparent hover:bg-card/50 transition-colors">
+            <UploadIcon size={18} className="text-muted-foreground" />
+            <span className="text-sm font-semibold text-muted-foreground">
+              Or upload from gallery
+            </span>
+          </button>
+
+          <div className="mt-4 p-4 bg-accent/10 border border-accent/20 rounded-2xl text-accent-foreground/70 text-sm text-center font-medium">
+            For best results, wear tight-fitting clothing and ensure good
+            lighting.
           </div>
         </div>
       )}
