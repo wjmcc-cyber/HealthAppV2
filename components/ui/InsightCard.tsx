@@ -22,7 +22,7 @@ export default function InsightCard({
           <SparklesIcon size={16} className="animate-pulse" />
           <h3 className="text-sm font-semibold tracking-wide uppercase">{title}</h3>
         </div>
-        <p className="text-sm text-white/90 leading-relaxed font-medium">
+        <p className="text-sm text-foreground leading-relaxed font-medium">
           {insight}
         </p>
       </div>

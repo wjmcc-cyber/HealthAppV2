@@ -3,6 +3,7 @@ import { Inter, Oswald } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import { UnitsProvider } from "@/lib/units";
+import { ThemeProvider } from "@/lib/theme";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -33,20 +34,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="dark" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${oswald.variable} font-sans antialiased bg-black text-foreground`}
+        className={`${inter.variable} ${oswald.variable} font-sans antialiased bg-background text-foreground`}
       >
-        <UnitsProvider>
-          {/* Mobile Wrapper for Desktop Viewing */}
-          <div className="mx-auto flex flex-col min-h-screen max-w-md bg-background shadow-2xl relative overflow-hidden">
-            <main className="flex-1 overflow-y-auto pb-24 touch-pan-y scroll-smooth">
-              {children}
-            </main>
-            {/* Global Bottom Navigation Component */}
-            <Navigation />
-          </div>
-        </UnitsProvider>
+        <ThemeProvider>
+          <UnitsProvider>
+            <div className="mx-auto flex flex-col min-h-screen max-w-md bg-background shadow-2xl relative overflow-hidden border-x border-border/30">
+              <main className="flex-1 overflow-y-auto pb-24 touch-pan-y scroll-smooth">
+                {children}
+              </main>
+              <Navigation />
+            </div>
+          </UnitsProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

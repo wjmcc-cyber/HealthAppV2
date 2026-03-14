@@ -26,10 +26,10 @@ export default function AppButton({
   const variants = {
     primary: "bg-primary text-primary-foreground hover:brightness-110 shadow-[0_0_20px_rgba(56,242,205,0.4)]",
     secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-    white: "bg-white text-black hover:bg-gray-200",
+    white: "bg-card text-card-foreground hover:bg-secondary",
     outline: "border-2 border-primary/50 text-primary hover:bg-primary/10",
-    ghost: "text-muted-foreground hover:text-white hover:bg-white/5",
-    danger: "bg-red-500/10 text-red-500 border border-red-500/20 hover:bg-red-500/20",
+    ghost: "text-muted-foreground hover:text-foreground hover:bg-secondary/50",
+    danger: "bg-destructive/10 text-destructive border border-destructive/20 hover:bg-destructive/20",
   };
 
   const sizes = {

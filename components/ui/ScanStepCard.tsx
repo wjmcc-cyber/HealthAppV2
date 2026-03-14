@@ -30,7 +30,7 @@ export default function ScanStepCard({
     >
       <div className="flex items-start justify-between">
         <div className="flex flex-col gap-1">
-          <h3 className="text-lg font-bold text-white flex items-center gap-2">
+          <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
             {title}
             {isCompleted && <CheckIcon size={16} className="text-primary" />}
           </h3>
@@ -38,7 +38,7 @@ export default function ScanStepCard({
         </div>
         <div className={cn(
           "w-10 h-10 rounded-full flex items-center justify-center shrink-0",
-          isActive ? "bg-primary text-black" : "bg-secondary text-muted-foreground",
+          isActive ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground",
           isCompleted ? "bg-primary/20 text-primary" : ""
         )}>
           <CameraIcon size={20} />
@@ -46,14 +46,28 @@ export default function ScanStepCard({
       </div>
 
       {(isActive || !isCompleted) && (
-        <AppButton 
-          variant={isActive ? "primary" : "secondary"} 
-          fullWidth 
-          onClick={onStart}
-          className="mt-2"
-        >
-          {isCompleted ? "Recapture" : "Start Capture"}
-        </AppButton>
+        <div className="relative mt-2 w-full">
+          {/* Hidden native file input to trigger camera on mobile */}
+          <input 
+            type="file" 
+            accept="image/*" 
+            capture="environment" 
+            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+            onChange={(e) => {
+              // If a file is selected (user took a photo), trigger the step
+              if (e.target.files && e.target.files.length > 0) {
+                onStart();
+              }
+            }}
+          />
+          <AppButton 
+            variant={isActive ? "primary" : "secondary"} 
+            fullWidth 
+            className="pointer-events-none"
+          >
+            {isCompleted ? "Recapture" : "Start Capture"}
+          </AppButton>
+        </div>
       )}
     </div>
   );

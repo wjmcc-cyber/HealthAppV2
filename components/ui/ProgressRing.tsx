@@ -15,7 +15,7 @@ export default function ProgressRing({
   size = 120,
   strokeWidth = 12,
   colorClass = "text-primary",
-  emptyColorClass = "text-muted",
+  emptyColorClass = "text-muted-foreground/20",
   children,
   className,
 }: ProgressRingProps) {

@@ -1,9 +1,11 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import SectionHeader from "@/components/ui/SectionHeader";
 import MacroBar from "@/components/ui/MacroBar";
 import ProgressRing from "@/components/ui/ProgressRing";
 import { MOCK_NUTRITION, MOCK_SUGGESTED_MEALS, MOCK_GROCERY_LIST } from "@/data/mockData";
+import { Meal } from "@/types";
 import {
   PlusIcon,
   CameraIcon,
@@ -14,9 +16,28 @@ import {
   ShoppingCartIcon,
   CheckIcon,
 } from "lucide-react";
+import Link from "next/link";
 
 export default function NutritionPage() {
-  const { target, consumed, meals } = MOCK_NUTRITION;
+  const [customMeals, setCustomMeals] = useState<Meal[]>([]);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("physiqueai-custom-meals");
+    if (saved) {
+      setCustomMeals(JSON.parse(saved));
+    }
+  }, []);
+
+  const { target, consumed: mockConsumed, meals: mockMeals } = MOCK_NUTRITION;
+
+  const allMeals = [...mockMeals, ...customMeals];
+  
+  const consumed = {
+    calories: mockConsumed.calories + customMeals.reduce((acc, current) => acc + current.calories, 0),
+    protein: mockConsumed.protein + customMeals.reduce((acc, current) => acc + current.macros.protein, 0),
+    carbs: mockConsumed.carbs + customMeals.reduce((acc, current) => acc + current.macros.carbs, 0),
+    fat: mockConsumed.fat + customMeals.reduce((acc, current) => acc + current.macros.fat, 0),
+  };
 
   return (
     <div className="flex flex-col min-h-full px-4 pt-6 pb-6 relative">
@@ -30,10 +51,10 @@ export default function NutritionPage() {
           progress={(consumed.calories / target.calories) * 100}
           size={180}
           strokeWidth={16}
-          colorClass="text-white"
+          colorClass="text-foreground"
         >
           <div className="flex flex-col items-center">
-            <span className="text-4xl font-extrabold text-white tracking-tighter">
+            <span className="text-4xl font-extrabold text-foreground tracking-tighter">
               {target.calories - consumed.calories}
             </span>
             <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest mt-1">
@@ -45,7 +66,7 @@ export default function NutritionPage() {
 
       {/* Macro Breakdown */}
       <div className="bg-secondary/30 border border-white/5 rounded-3xl p-5 mb-6">
-        <h3 className="text-sm font-bold text-white mb-4">Macro Targets</h3>
+        <h3 className="text-sm font-bold text-foreground mb-4">Macro Targets</h3>
         <div className="flex flex-col gap-4">
           <MacroBar
             label="Protein"
@@ -70,21 +91,21 @@ export default function NutritionPage() {
 
       {/* Logging Actions */}
       <div className="grid grid-cols-3 gap-3 mb-8">
-        <button className="bg-card border border-border rounded-2xl p-3 flex flex-col items-center gap-2 tap-highlight-transparent hover:bg-white/5 transition-colors">
-          <SearchIcon size={20} className="text-muted-foreground" />
-          <span className="text-[10px] font-bold text-white uppercase tracking-wider">
+        <Link href="/nutrition/add" className="bg-card border border-border rounded-2xl p-3 flex flex-col items-center gap-2 tap-highlight-transparent hover:bg-card/5 transition-colors text-center">
+           <SearchIcon size={20} className="text-muted-foreground" />
+          <span className="text-[10px] font-bold text-foreground uppercase tracking-wider">
             Search
           </span>
-        </button>
-        <button className="bg-card border border-border rounded-2xl p-3 flex flex-col items-center gap-2 tap-highlight-transparent hover:bg-white/5 transition-colors">
+        </Link>
+        <button className="bg-card border border-border rounded-2xl p-3 flex flex-col items-center gap-2 tap-highlight-transparent hover:bg-card/5 transition-colors">
           <BarcodeIcon size={20} className="text-muted-foreground" />
-          <span className="text-[10px] font-bold text-white uppercase tracking-wider">
+          <span className="text-[10px] font-bold text-foreground uppercase tracking-wider">
             Scan
           </span>
         </button>
-        <button className="bg-card border border-border rounded-2xl p-3 flex flex-col items-center gap-2 tap-highlight-transparent hover:bg-white/5 transition-colors">
+        <button className="bg-card border border-border rounded-2xl p-3 flex flex-col items-center gap-2 tap-highlight-transparent hover:bg-card/5 transition-colors">
           <CameraIcon size={20} className="text-muted-foreground" />
-          <span className="text-[10px] font-bold text-white uppercase tracking-wider">
+          <span className="text-[10px] font-bold text-foreground uppercase tracking-wider">
             Photo
           </span>
         </button>
@@ -93,14 +114,14 @@ export default function NutritionPage() {
       {/* Meals Log */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-bold text-white">Today&apos;s Log</h3>
-          <button className="text-primary p-1">
+          <h3 className="text-lg font-bold text-foreground">Today&apos;s Log</h3>
+          <Link href="/nutrition/add" className="text-primary p-1 transition-transform hover:scale-110">
             <PlusIcon size={24} />
-          </button>
+          </Link>
         </div>
 
         <div className="flex flex-col gap-3">
-          {meals.map((meal) => (
+          {allMeals.map((meal) => (
             <div
               key={meal.id}
               className="bg-card/50 border border-border rounded-2xl p-4 flex justify-between items-center group cursor-pointer hover:bg-card transition-colors"
@@ -109,7 +130,7 @@ export default function NutritionPage() {
                 <span className="text-xs font-bold text-primary uppercase tracking-wider">
                   {meal.type}
                 </span>
-                <p className="font-bold text-white text-sm">{meal.name}</p>
+                <p className="font-bold text-foreground text-sm">{meal.name}</p>
                 <p className="text-[10px] text-muted-foreground font-medium flex gap-2">
                   <span>{meal.macros.protein}g P</span>
                   <span>{meal.macros.carbs}g C</span>
@@ -117,7 +138,7 @@ export default function NutritionPage() {
                 </p>
               </div>
               <div className="text-right">
-                <span className="text-lg font-extrabold text-white">
+                <span className="text-lg font-extrabold text-foreground">
                   {meal.calories}
                 </span>
                 <span className="text-xs text-muted-foreground block -mt-1 font-semibold">
@@ -133,7 +154,7 @@ export default function NutritionPage() {
       <div className="mb-8">
         <div className="flex items-center gap-2 mb-4">
           <SparklesIcon size={16} className="text-primary" />
-          <h3 className="text-lg font-bold text-white">AI Meal Suggestions</h3>
+          <h3 className="text-lg font-bold text-foreground">AI Meal Suggestions</h3>
         </div>
         <div className="flex gap-3 overflow-x-auto pb-4 snap-x">
           {MOCK_SUGGESTED_MEALS.map((meal) => (
@@ -142,7 +163,7 @@ export default function NutritionPage() {
               className="snap-start shrink-0 w-44 bg-card border border-border rounded-2xl p-4 flex flex-col gap-3 relative overflow-hidden group cursor-pointer hover:border-primary/30 transition-colors"
             >
               <div className="absolute -top-4 -right-4 w-16 h-16 bg-primary/5 rounded-full blur-xl pointer-events-none group-hover:bg-primary/10 transition-colors" />
-              <h4 className="text-sm font-bold text-white leading-tight line-clamp-2">
+              <h4 className="text-sm font-bold text-foreground leading-tight line-clamp-2">
                 {meal.name}
               </h4>
               <div className="flex items-center gap-2 text-[10px] text-muted-foreground font-bold uppercase tracking-wider">
@@ -172,8 +193,8 @@ export default function NutritionPage() {
       {/* Grocery List Preview */}
       <div>
         <div className="flex items-center gap-2 mb-4">
-          <ShoppingCartIcon size={16} className="text-white" />
-          <h3 className="text-lg font-bold text-white">Weekly Grocery List</h3>
+          <ShoppingCartIcon size={16} className="text-foreground" />
+          <h3 className="text-lg font-bold text-foreground">Weekly Grocery List</h3>
         </div>
         <div className="bg-card/50 border border-border rounded-2xl overflow-hidden">
           {MOCK_GROCERY_LIST.slice(0, 6).map((item, idx) => (
@@ -181,7 +202,7 @@ export default function NutritionPage() {
               key={item.id}
               className={`flex items-center justify-between p-3.5 ${
                 idx < 5 ? "border-b border-white/5" : ""
-              } hover:bg-white/5 transition-colors cursor-pointer tap-highlight-transparent`}
+              } hover:bg-card/5 transition-colors cursor-pointer tap-highlight-transparent`}
             >
               <div className="flex items-center gap-3">
                 <div
@@ -192,7 +213,7 @@ export default function NutritionPage() {
                   }`}
                 >
                   {item.checked && (
-                    <CheckIcon size={12} className="text-black" />
+                    <CheckIcon size={12} className="text-card-foreground" />
                   )}
                 </div>
                 <div>
@@ -200,7 +221,7 @@ export default function NutritionPage() {
                     className={`text-sm font-semibold ${
                       item.checked
                         ? "text-muted-foreground line-through"
-                        : "text-white"
+                        : "text-foreground"
                     }`}
                   >
                     {item.name}

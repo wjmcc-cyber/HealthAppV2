@@ -30,27 +30,27 @@ export default function StatCard({
   return (
     <div className={cn(
       "border rounded-3xl p-5 flex flex-col justify-between shadow-lg transition-colors",
-      isWhite ? "bg-white border-white text-black" : "bg-accent border-border text-white",
+      isWhite ? "bg-card border-border text-card-foreground" : "bg-accent border-border text-accent-foreground",
       className
     )}>
       <div className="flex flex-row items-center justify-between mb-3">
-        <h3 className={cn("text-xs font-bold uppercase tracking-wider", isWhite ? "text-black/60" : "text-muted-foreground")}>
+        <h3 className={cn("text-xs font-bold uppercase tracking-wider", "text-muted-foreground")}>
           {title}
         </h3>
-        {Icon && <Icon size={16} className={isWhite ? "text-black/40" : "text-muted-foreground opacity-50"} />}
+        {Icon && <Icon size={16} className={"text-muted-foreground opacity-50"} />}
       </div>
       <div className="flex flex-col gap-1 mt-auto pt-2">
         <div className="flex items-baseline gap-2">
-          <span className={cn("text-4xl font-display uppercase leading-none tracking-tight", isWhite ? "text-black" : "text-white", valueClassName)}>
+          <span className={cn("text-4xl font-display uppercase leading-none tracking-tight", isWhite ? "text-card-foreground" : "text-accent-foreground", valueClassName)}>
             {value}
           </span>
           {trend && (
-            <span className={cn("text-xs font-bold", trend.isPositive ? (isWhite ? "text-emerald-500" : "text-primary") : "text-red-500")}>
+            <span className={cn("text-xs font-bold", trend.isPositive ? "text-success" : "text-destructive")}>
               {trend.isPositive ? "+" : "-"}{Math.abs(trend.value)}%
             </span>
           )}
         </div>
-        {subtitle && <p className={cn("text-[10px] font-semibold uppercase tracking-wider mt-1", isWhite ? "text-black/50" : "text-muted-foreground")}>{subtitle}</p>}
+        {subtitle && <p className={cn("text-[10px] font-semibold uppercase tracking-wider mt-1", "text-muted-foreground")}>{subtitle}</p>}
       </div>
     </div>
   );

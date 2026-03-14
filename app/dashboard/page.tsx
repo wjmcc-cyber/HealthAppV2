@@ -29,7 +29,7 @@ export default function DashboardPage() {
       {/* Header Profile Section */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white tracking-tight">
+          <h1 className="text-2xl font-bold text-foreground tracking-tight">
             Hi, {MOCK_USER.name.split(" ")[0]}
           </h1>
           <p className="text-sm text-muted-foreground font-medium">
@@ -51,19 +51,19 @@ export default function DashboardPage() {
       {/* Main Focus: Today's Workout */}
       <section>
         <SectionHeader title="Today's Training" />
-        <div className="bg-white border border-white rounded-[2rem] p-6 relative overflow-hidden group shadow-2xl">
+        <div className="bg-card border border-white rounded-[2rem] p-6 relative overflow-hidden group shadow-2xl">
           <div className="absolute top-0 right-0 w-48 h-48 bg-primary/20 rounded-full blur-3xl -mr-16 -mt-16" />
           <div className="flex justify-between items-start mb-6 relative z-10">
             <div>
-              <span className="text-[10px] font-bold text-black/50 uppercase tracking-widest mb-1 block">
+              <span className="text-[10px] font-bold text-card-foreground/50 uppercase tracking-widest mb-1 block">
                 Scheduled
               </span>
-              <h2 className="text-3xl font-display uppercase tracking-tight text-black leading-none">
+              <h2 className="text-3xl font-display uppercase tracking-tight text-card-foreground leading-none">
                 Hypertrophy
                 <br />
                 Push Day
               </h2>
-              <p className="text-sm text-black/70 font-bold mt-2">
+              <p className="text-sm text-card-foreground/70 font-bold mt-2">
                 65 mins • 4 exercises
               </p>
             </div>
@@ -94,16 +94,16 @@ export default function DashboardPage() {
           }
         />
         <div className="grid grid-cols-2 gap-4">
-          <div className="bg-white border border-white rounded-3xl p-5 flex flex-col items-center justify-center text-center shadow-lg">
+          <div className="bg-card border border-white rounded-3xl p-5 flex flex-col items-center justify-center text-center shadow-lg">
             <ProgressRing progress={proteinProgress} size={100} className="mb-3">
-              <span className="text-3xl font-display font-bold text-black tracking-tight leading-none">
+              <span className="text-3xl font-display font-bold text-card-foreground tracking-tight leading-none">
                 {Math.round(MOCK_NUTRITION.consumed.protein)}
               </span>
-              <span className="text-[10px] text-black/50 uppercase tracking-widest font-bold">
+              <span className="text-[10px] text-card-foreground/50 uppercase tracking-widest font-bold">
                 Protein
               </span>
             </ProgressRing>
-            <p className="text-[10px] font-bold text-black/50 uppercase tracking-wider">
+            <p className="text-[10px] font-bold text-card-foreground/50 uppercase tracking-wider">
               <span className="text-emerald-500 font-bold">
                 {Math.round(
                   MOCK_NUTRITION.target.protein - MOCK_NUTRITION.consumed.protein
@@ -131,7 +131,7 @@ export default function DashboardPage() {
               valueClassName={
                 MOCK_RECOVERY.score > 80
                   ? "text-primary text-4xl font-display"
-                  : "text-black text-4xl font-display"
+                  : "text-card-foreground text-4xl font-display"
               }
             />
           </div>
@@ -145,11 +145,11 @@ export default function DashboardPage() {
             href="/scan"
             className="bg-secondary/50 border border-white/5 rounded-2xl p-4 flex flex-col items-center gap-2 tap-highlight-transparent hover:bg-secondary transition-colors text-center"
           >
-            <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center">
-              <ScanLineIcon size={18} className="text-white" />
+            <div className="w-10 h-10 rounded-full bg-card/5 flex items-center justify-center">
+              <ScanLineIcon size={18} className="text-foreground" />
             </div>
             <div>
-              <h3 className="text-xs font-bold text-white">Body Scan</h3>
+              <h3 className="text-xs font-bold text-foreground">Body Scan</h3>
               <p className="text-[9px] text-muted-foreground uppercase tracking-wider mt-0.5">
                 Due in 2 days
               </p>
@@ -163,7 +163,7 @@ export default function DashboardPage() {
               <SparklesIcon size={18} className="text-primary" />
             </div>
             <div>
-              <h3 className="text-xs font-bold text-white">Prediction</h3>
+              <h3 className="text-xs font-bold text-foreground">Prediction</h3>
               <p className="text-[9px] text-muted-foreground uppercase tracking-wider mt-0.5">
                 AI Forecast
               </p>
@@ -173,11 +173,11 @@ export default function DashboardPage() {
             href="/recovery"
             className="bg-secondary/50 border border-white/5 rounded-2xl p-4 flex flex-col items-center gap-2 tap-highlight-transparent hover:bg-secondary transition-colors text-center"
           >
-            <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center">
-              <MoonStarIcon size={18} className="text-white" />
+            <div className="w-10 h-10 rounded-full bg-card/5 flex items-center justify-center">
+              <MoonStarIcon size={18} className="text-foreground" />
             </div>
             <div>
-              <h3 className="text-xs font-bold text-white">Sleep</h3>
+              <h3 className="text-xs font-bold text-foreground">Sleep</h3>
               <p className="text-[9px] text-muted-foreground uppercase tracking-wider mt-0.5">
                 {MOCK_RECOVERY.sleepDurationHours}h logged
               </p>
@@ -197,7 +197,7 @@ export default function DashboardPage() {
               <TrendingUpIcon size={20} className="text-primary" />
             </div>
             <div>
-              <h3 className="text-sm font-bold text-white">Goal Progress</h3>
+              <h3 className="text-sm font-bold text-foreground">Goal Progress</h3>
               <p className="text-xs text-muted-foreground font-medium">
                 Down 2.5kg this month • On track
               </p>
@@ -205,7 +205,7 @@ export default function DashboardPage() {
           </div>
           <ChevronRightIcon
             size={18}
-            className="text-muted-foreground group-hover:text-white transition-colors"
+            className="text-muted-foreground group-hover:text-foreground transition-colors"
           />
         </Link>
       </section>

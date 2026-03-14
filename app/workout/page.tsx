@@ -59,10 +59,10 @@ export default function WorkoutPage() {
             className={cn(
               "flex flex-col items-center shrink-0 px-3 py-2 rounded-xl transition-all duration-200 tap-highlight-transparent min-w-[48px]",
               selectedDay === idx
-                ? "bg-primary text-black"
+                ? "bg-primary text-card-foreground"
                 : day.isRestDay
                 ? "bg-secondary/30 text-muted-foreground border border-white/5"
-                : "bg-secondary/50 text-white border border-white/5"
+                : "bg-secondary/50 text-foreground border border-white/5"
             )}
           >
             <span className="text-[10px] font-bold uppercase tracking-wider">
@@ -81,7 +81,7 @@ export default function WorkoutPage() {
           <div className="w-20 h-20 rounded-full bg-secondary/30 flex items-center justify-center border border-white/5">
             <span className="text-3xl">😴</span>
           </div>
-          <h2 className="text-2xl font-display uppercase font-bold text-white">
+          <h2 className="text-2xl font-display uppercase font-bold text-foreground">
             Rest Day
           </h2>
           <p className="text-sm text-muted-foreground max-w-xs">
@@ -95,7 +95,7 @@ export default function WorkoutPage() {
       {!isRestDay && (
         <>
           <div className="mb-6 mt-2 relative z-10">
-            <h1 className="text-5xl font-display uppercase font-extrabold text-white tracking-tight leading-none mb-2 drop-shadow-md">
+            <h1 className="text-5xl font-display uppercase font-extrabold text-foreground tracking-tight leading-none mb-2 drop-shadow-md">
               {currentWorkout.title}
             </h1>
             <p className="text-primary font-bold flex items-center gap-2 uppercase tracking-wide text-xs">
@@ -107,14 +107,14 @@ export default function WorkoutPage() {
 
           {!workoutStarted ? (
             <div className="flex-1 flex flex-col justify-center gap-6 animate-in fade-in duration-500 relative z-10">
-              <div className="bg-white border-none rounded-[2rem] p-6 text-center shadow-xl relative overflow-hidden">
+              <div className="bg-card border-none rounded-[2rem] p-6 text-center shadow-xl relative overflow-hidden">
                 {/* Glow Accent inside card */}
                 <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-primary/20 rounded-full blur-2xl pointer-events-none" />
 
-                <h3 className="text-2xl font-display uppercase font-bold text-black mb-2">
+                <h3 className="text-2xl font-display uppercase font-bold text-card-foreground mb-2">
                   Ready to crush it?
                 </h3>
-                <p className="text-sm text-black/60 font-semibold mb-6">
+                <p className="text-sm text-card-foreground/60 font-semibold mb-6">
                   Make sure to warm up your rotator cuffs before starting heavy
                   presses.
                 </p>
@@ -134,7 +134,7 @@ export default function WorkoutPage() {
                   size={16}
                   className="text-primary shrink-0 mt-0.5"
                 />
-                <p className="text-sm text-white/80 leading-relaxed">
+                <p className="text-sm text-foreground/80 leading-relaxed">
                   <span className="font-bold text-primary">AI Tip:</span> Your
                   recovery score is 84%. Perfect day to push heavier on compounds
                   — try adding 2.5kg to your incline press.
@@ -142,23 +142,23 @@ export default function WorkoutPage() {
               </div>
 
               <div>
-                <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-3 px-1 text-white">
+                <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-3 px-1 text-foreground">
                   Exercise Preview
                 </h4>
                 <div className="flex gap-3 overflow-x-auto pb-4 snap-x hide-scrollbar">
                   {currentWorkout.exercises.map((ex) => (
                     <div
                       key={ex.id}
-                      className="snap-start shrink-0 w-36 bg-white border border-white rounded-[1.5rem] p-3 flex flex-col gap-2 shadow-lg relative overflow-hidden"
+                      className="snap-start shrink-0 w-36 bg-card border border-white rounded-[1.5rem] p-3 flex flex-col gap-2 shadow-lg relative overflow-hidden"
                     >
                       <div className="absolute -top-4 -right-4 w-12 h-12 bg-primary/10 rounded-full blur-xl pointer-events-none" />
                       <div className="w-full aspect-video bg-black/5 rounded-xl mb-1 flex items-center justify-center relative">
-                        <DumbbellIcon size={24} className="text-black/10" />
+                        <DumbbellIcon size={24} className="text-card-foreground/10" />
                       </div>
-                      <p className="text-sm font-bold text-black line-clamp-2 leading-tight uppercase font-display">
+                      <p className="text-sm font-bold text-card-foreground line-clamp-2 leading-tight uppercase font-display">
                         {ex.name}
                       </p>
-                      <p className="text-[10px] text-black/50 font-bold uppercase tracking-wider">
+                      <p className="text-[10px] text-card-foreground/50 font-bold uppercase tracking-wider">
                         {ex.sets} set × {ex.reps}
                       </p>
                     </div>
@@ -169,7 +169,7 @@ export default function WorkoutPage() {
           ) : (
             <div className="flex flex-col gap-4 animate-in slide-in-from-bottom-4 duration-500 pb-20">
               <div className="flex items-center justify-between mb-2">
-                <h4 className="text-sm font-bold text-white">
+                <h4 className="text-sm font-bold text-foreground">
                   Current Circuit
                 </h4>
                 <span className="text-xs font-bold text-primary">

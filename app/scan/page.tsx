@@ -59,7 +59,7 @@ export default function ScanPage() {
           completedSteps.length > 0 ? (
             <button
               onClick={resetScan}
-              className="p-2 text-muted-foreground hover:text-white tap-highlight-transparent"
+              className="p-2 text-muted-foreground hover:text-foreground tap-highlight-transparent"
             >
               <RotateCcwIcon size={20} />
             </button>
@@ -71,7 +71,7 @@ export default function ScanPage() {
         <div className="animate-in fade-in zoom-in-95 duration-500 flex flex-col gap-6">
           <div className="bg-primary/10 border border-primary/20 rounded-3xl p-6 text-center">
             <ShieldCheckIcon size={40} className="text-primary mx-auto mb-3" />
-            <h2 className="text-2xl font-bold text-white mb-2">
+            <h2 className="text-2xl font-bold text-foreground mb-2">
               Analysis Complete
             </h2>
             <p className="text-sm text-primary font-medium">
@@ -84,7 +84,7 @@ export default function ScanPage() {
               <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">
                 Body Fat
               </h3>
-              <p className="text-3xl font-extrabold text-white">
+              <p className="text-3xl font-extrabold text-foreground">
                 {MOCK_SCAN_RESULT.bodyFatPercentage}
                 <span className="text-lg text-muted-foreground">%</span>
               </p>
@@ -93,7 +93,7 @@ export default function ScanPage() {
               <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">
                 Lean Mass
               </h3>
-              <p className="text-3xl font-extrabold text-white">
+              <p className="text-3xl font-extrabold text-foreground">
                 {MOCK_SCAN_RESULT.leanMassKg}
                 <span className="text-lg text-muted-foreground">kg</span>
               </p>
@@ -102,7 +102,7 @@ export default function ScanPage() {
               <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">
                 Symmetry Score
               </h3>
-              <p className="text-3xl font-extrabold text-white">
+              <p className="text-3xl font-extrabold text-foreground">
                 {MOCK_SCAN_RESULT.symmetryScore}
                 <span className="text-lg text-muted-foreground">/100</span>
               </p>
@@ -111,7 +111,7 @@ export default function ScanPage() {
 
           <div className="bg-secondary/30 rounded-2xl p-4 border border-border flex gap-3">
             <InfoIcon className="text-accent shrink-0 mt-0.5" size={20} />
-            <p className="text-sm text-white/90 leading-relaxed">
+            <p className="text-sm text-foreground/90 leading-relaxed">
               <span className="font-semibold block mb-1">Posture Notes:</span>
               {MOCK_SCAN_RESULT.postureNotes}
             </p>
@@ -122,7 +122,7 @@ export default function ScanPage() {
             <div>
               <div className="flex items-center gap-2 mb-3">
                 <ClockIcon size={14} className="text-muted-foreground" />
-                <h3 className="text-sm font-bold text-white">Scan History</h3>
+                <h3 className="text-sm font-bold text-foreground">Scan History</h3>
               </div>
               <div className="flex gap-3 overflow-x-auto pb-2">
                 {MOCK_SCAN_HISTORY.map((scan) => (
@@ -136,7 +136,7 @@ export default function ScanPage() {
                         day: "numeric",
                       })}
                     </p>
-                    <p className="text-sm font-bold text-white">
+                    <p className="text-sm font-bold text-foreground">
                       {scan.bodyFatPercentage}% BF
                     </p>
                     <p className="text-xs text-muted-foreground">
@@ -157,7 +157,7 @@ export default function ScanPage() {
       {scanState === "ANALYZING" && (
         <div className="flex-1 flex flex-col items-center justify-center text-center animate-in fade-in duration-500">
           <div className="w-24 h-24 border-4 border-secondary border-t-primary rounded-full animate-spin mb-6" />
-          <h2 className="text-2xl font-bold text-white mb-2">
+          <h2 className="text-2xl font-bold text-foreground mb-2">
             Analyzing Physique...
           </h2>
           <p className="text-muted-foreground">
@@ -173,7 +173,7 @@ export default function ScanPage() {
             <div className="absolute inset-4 border-2 border-primary/40 rounded-2xl flex items-center justify-center">
               <FocusIcon size={64} className="text-primary/40 animate-pulse" />
             </div>
-            <p className="absolute bottom-6 font-bold text-white bg-black/50 px-4 py-2 rounded-full backdrop-blur-md">
+            <p className="absolute bottom-6 font-bold text-foreground bg-black/50 px-4 py-2 rounded-full backdrop-blur-md">
               Hold still...
             </p>
           </div>

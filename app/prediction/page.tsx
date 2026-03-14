@@ -57,7 +57,7 @@ export default function PredictionPage() {
 
       <div className="bg-primary/10 border border-primary/20 rounded-3xl p-5 mb-8 relative z-10 text-center">
         <SparklesIcon size={24} className="text-primary mx-auto mb-2" />
-        <p className="text-sm text-white/90 font-medium">
+        <p className="text-sm text-foreground/90 font-medium">
           Based on your scan trajectory and genetics, here is your estimated
           potential.
         </p>
@@ -67,7 +67,7 @@ export default function PredictionPage() {
       <div className="bg-card border border-border rounded-3xl p-5 mb-8 relative z-10">
         <div className="flex justify-between items-end mb-4">
           <div>
-            <h3 className="text-sm font-bold text-white tracking-wide">
+            <h3 className="text-sm font-bold text-foreground tracking-wide">
               Plan Adherence
             </h3>
             <p className="text-xs text-muted-foreground mt-0.5">
@@ -109,7 +109,7 @@ export default function PredictionPage() {
                 <span className="text-[10px] font-bold text-muted-foreground uppercase opacity-80">
                   Weight
                 </span>
-                <p className="text-lg font-bold text-white">
+                <p className="text-lg font-bold text-foreground">
                   {MOCK_PREDICTION.currentWeight}kg
                 </p>
               </div>
@@ -117,7 +117,7 @@ export default function PredictionPage() {
                 <span className="text-[10px] font-bold text-muted-foreground uppercase opacity-80">
                   Body Fat
                 </span>
-                <p className="text-lg font-bold text-white">
+                <p className="text-lg font-bold text-foreground">
                   {MOCK_PREDICTION.currentBodyFat}%
                 </p>
               </div>
@@ -125,7 +125,7 @@ export default function PredictionPage() {
                 <span className="text-[10px] font-bold text-muted-foreground uppercase opacity-80">
                   Lean Mass
                 </span>
-                <p className="text-lg font-bold text-white">
+                <p className="text-lg font-bold text-foreground">
                   {MOCK_PREDICTION.currentLeanMass}kg
                 </p>
               </div>
@@ -147,7 +147,7 @@ export default function PredictionPage() {
                 <span className="text-[10px] font-bold text-primary uppercase opacity-80">
                   Weight
                 </span>
-                <p className="text-lg font-bold text-white">
+                <p className="text-lg font-bold text-foreground">
                   {adjWeight3M.toFixed(1)}kg
                 </p>
               </div>
@@ -155,7 +155,7 @@ export default function PredictionPage() {
                 <span className="text-[10px] font-bold text-primary uppercase opacity-80">
                   Body Fat
                 </span>
-                <p className="text-lg font-bold text-white">
+                <p className="text-lg font-bold text-foreground">
                   {adjBf3M.toFixed(1)}%
                 </p>
               </div>
@@ -163,7 +163,7 @@ export default function PredictionPage() {
                 <span className="text-[10px] font-bold text-primary uppercase opacity-80">
                   Lean Mass
                 </span>
-                <p className="text-lg font-bold text-white flex items-center justify-end gap-1">
+                <p className="text-lg font-bold text-foreground flex items-center justify-end gap-1">
                   {adjLm3M.toFixed(1)}kg
                   <TrendingUpIcon size={12} className="text-primary" />
                 </p>
@@ -186,7 +186,7 @@ export default function PredictionPage() {
                 <span className="text-[10px] font-bold text-accent uppercase opacity-80">
                   Weight
                 </span>
-                <p className="text-lg font-bold text-white">
+                <p className="text-lg font-bold text-foreground">
                   {adjWeight6M.toFixed(1)}kg
                 </p>
               </div>
@@ -194,7 +194,7 @@ export default function PredictionPage() {
                 <span className="text-[10px] font-bold text-accent uppercase opacity-80">
                   Body Fat
                 </span>
-                <p className="text-lg font-bold text-white">
+                <p className="text-lg font-bold text-foreground">
                   {adjBf6M.toFixed(1)}%
                 </p>
               </div>
@@ -202,7 +202,7 @@ export default function PredictionPage() {
                 <span className="text-[10px] font-bold text-accent uppercase opacity-80">
                   Lean Mass
                 </span>
-                <p className="text-lg font-bold text-white flex items-center justify-end gap-1">
+                <p className="text-lg font-bold text-foreground flex items-center justify-end gap-1">
                   {adjLm6M.toFixed(1)}kg
                   <TrendingUpIcon size={12} className="text-primary" />
                 </p>
@@ -215,7 +215,7 @@ export default function PredictionPage() {
       {/* Visual Transformation Placeholder */}
       <div className="mt-8 relative z-10 bg-card border border-border rounded-3xl p-5 overflow-hidden">
         <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-3xl -mr-10 -mt-10" />
-        <h3 className="text-sm font-bold text-white mb-2 relative z-10">
+        <h3 className="text-sm font-bold text-foreground mb-2 relative z-10">
           Visual Transformation
         </h3>
         <p className="text-xs text-muted-foreground mb-4 relative z-10">

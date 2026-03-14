@@ -11,48 +11,57 @@ import {
   LogOutIcon, 
   CreditCardIcon, 
   DumbbellIcon,
-  ChevronRightIcon
+  ChevronRightIcon,
+  MoonIcon,
+  SunIcon
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-
+import Link from "next/link";
 import { useUnits } from "@/lib/units";
+import { useTheme } from "@/lib/theme";
+import { useRouter } from "next/navigation";
 
 export default function ProfilePage() {
   const { system, setSystem, formatWeight, formatHeight } = useUnits();
+  const { theme, setTheme } = useTheme();
+  const router = useRouter();
 
   const menuGroups = [
     {
       title: "Account",
       items: [
-        { icon: UserIcon, label: "Personal Information" },
-        { icon: DumbbellIcon, label: "Fitness Goals & Plan" },
-        { icon: CreditCardIcon, label: "Subscription" },
+        { icon: UserIcon, label: "Personal Information", href: "/profile/edit" },
+        { icon: DumbbellIcon, label: "Fitness Goals & Plan", href: "/profile/goals" },
+        { icon: CreditCardIcon, label: "Subscription", href: "/profile/subscription" },
       ]
     },
     {
       title: "App Settings",
       items: [
-        { icon: BellIcon, label: "Notifications" },
-        { icon: SettingsIcon, label: "Units & Preferences" },
-        { icon: ShieldIcon, label: "Privacy & Data" },
+        { icon: BellIcon, label: "Notifications", href: "/profile/notifications" },
+        { icon: SettingsIcon, label: "Units & Preferences", href: "/profile/settings" },
+        { icon: ShieldIcon, label: "Privacy & Data", href: "/profile/privacy" },
       ]
     }
   ];
 
-  // Dynamic values using our simple mock data standard
-  const { value: weight, unit: weightUnit } = formatWeight(82.5); // MOCK data
-  const { value: height, unit: heightUnit } = formatHeight(180); // MOCK data
-  const { value: targetWeight } = formatWeight(78); // MOCK data
+  const { value: weight, unit: weightUnit } = formatWeight(82.5);
+  const { value: height, unit: heightUnit } = formatHeight(180);
+  const { value: targetWeight } = formatWeight(78);
+
+  const handleSignOut = () => {
+    router.push("/");
+  };
 
   return (
-    <div className="flex flex-col min-h-screen px-4 pt-6 pb-24">
+    <div className="flex flex-col min-h-screen px-4 pt-6 pb-24 theme-transition">
       <SectionHeader title="Profile" />
 
       {/* Dribbble Style Header Card */}
       <div className="bg-primary border-none rounded-[2rem] p-6 mb-8 relative overflow-hidden shadow-[0_10px_40px_rgba(56,242,205,0.2)]">
         {/* Glow Effects */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-white/20 rounded-full blur-3xl -mr-20 -mt-20" />
-        <div className="absolute bottom-0 left-0 w-48 h-48 bg-black/20 rounded-full blur-2xl -ml-10 -mb-10" />
+        <div className="absolute top-0 right-0 w-64 h-64 bg-white/20 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-48 h-48 bg-black/20 rounded-full blur-2xl -ml-10 -mb-10 pointer-events-none" />
         
         <div className="relative z-10 flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
@@ -64,9 +73,9 @@ export default function ProfilePage() {
               <p className="text-xs font-bold text-black/60 uppercase tracking-widest mt-1">{MOCK_USER.goal} • {MOCK_USER.experienceLevel}</p>
             </div>
           </div>
-          <div className="bg-black/10 p-2 rounded-full cursor-pointer tap-highlight-transparent hover:bg-black/20 transition">
+          <Link href="/profile/settings" className="bg-black/10 p-2 rounded-full cursor-pointer tap-highlight-transparent hover:bg-black/20 transition">
             <SettingsIcon size={20} className="text-black" />
-          </div>
+          </Link>
         </div>
 
         {/* Units / Stats Row */}
@@ -90,29 +99,55 @@ export default function ProfilePage() {
              </span>
           </div>
         </div>
-
       </div>
 
-      {/* Global Units Toggle (Outside standard flow for visibility) */}
-      <div className="bg-secondary p-1 flex rounded-full mb-8 max-w-[200px] mx-auto border border-white/10">
-        <button 
-          onClick={() => setSystem("metric")}
-          className={cn(
-            "flex-1 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all tap-highlight-transparent",
-            system === "metric" ? "bg-white text-black shadow-sm" : "text-muted-foreground hover:text-white"
-          )}
-        >
-          Metric
-        </button>
-        <button 
-          onClick={() => setSystem("imperial")}
-          className={cn(
-            "flex-1 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all tap-highlight-transparent",
-            system === "imperial" ? "bg-white text-black shadow-sm" : "text-muted-foreground hover:text-white"
-          )}
-        >
-          Imperial
-        </button>
+      {/* Global Toggles Grid */}
+      <div className="grid grid-cols-2 gap-4 mb-8">
+        {/* Units Toggle */}
+        <div className="bg-secondary p-1 flex rounded-full border border-border">
+          <button 
+            onClick={() => setSystem("metric")}
+            className={cn(
+              "flex-1 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all tap-highlight-transparent",
+              system === "metric" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
+            )}
+          >
+            Metric
+          </button>
+          <button 
+            onClick={() => setSystem("imperial")}
+            className={cn(
+              "flex-1 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all tap-highlight-transparent",
+              system === "imperial" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
+            )}
+          >
+            Imperial
+          </button>
+        </div>
+
+        {/* Theme Toggle */}
+        <div className="bg-secondary p-1 flex rounded-full border border-border">
+          <button 
+            onClick={() => setTheme("light")}
+            className={cn(
+              "flex-1 py-1.5 rounded-full flex justify-center items-center transition-all tap-highlight-transparent",
+              theme === "light" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
+            )}
+            title="Light Mode"
+          >
+            <SunIcon size={14} />
+          </button>
+          <button 
+            onClick={() => setTheme("dark")}
+            className={cn(
+              "flex-1 py-1.5 rounded-full flex justify-center items-center transition-all tap-highlight-transparent",
+              theme === "dark" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
+            )}
+            title="Dark Mode"
+          >
+            <MoonIcon size={14} />
+          </button>
+        </div>
       </div>
 
       <div className="flex flex-col gap-8">
@@ -125,21 +160,22 @@ export default function ProfilePage() {
                 const isLast = iIdx === group.items.length - 1;
                 
                 return (
-                  <button 
+                  <Link 
+                    href={item.href}
                     key={iIdx} 
                     className={cn(
-                      "flex items-center justify-between p-4 tap-highlight-transparent hover:bg-white/5 transition-colors",
-                      !isLast && "border-b border-white/5"
+                      "flex items-center justify-between p-4 tap-highlight-transparent hover:bg-secondary/50 transition-colors",
+                      !isLast && "border-b border-border"
                     )}
                   >
                     <div className="flex items-center gap-4">
                       <div className="text-muted-foreground">
                         <Icon size={20} />
                       </div>
-                      <span className="text-sm font-semibold text-white">{item.label}</span>
+                      <span className="text-sm font-semibold text-foreground">{item.label}</span>
                     </div>
                     <ChevronRightIcon size={18} className="text-muted-foreground/50" />
-                  </button>
+                  </Link>
                 );
               })}
             </div>
@@ -148,14 +184,13 @@ export default function ProfilePage() {
       </div>
 
       <div className="mt-12 w-full">
-        <AppButton variant="danger" fullWidth>
+        <AppButton variant="danger" fullWidth onClick={handleSignOut}>
            <LogOutIcon size={18} className="mr-2" /> Sign Out
         </AppButton>
         <p className="text-center text-[10px] text-muted-foreground mt-4 font-medium uppercase tracking-widest">
            PhysiqueAI v1.0.0
         </p>
       </div>
-
     </div>
   );
 }

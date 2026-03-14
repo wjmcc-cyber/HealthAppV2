@@ -35,8 +35,8 @@ export default function ProgressPage() {
             className={cn(
               "px-4 py-1.5 rounded-lg text-xs font-bold transition-all tap-highlight-transparent",
               timeframe === tf
-                ? "bg-card text-white shadow-sm"
-                : "text-muted-foreground hover:text-white"
+                ? "bg-card text-foreground shadow-sm"
+                : "text-muted-foreground hover:text-foreground"
             )}
           >
             {tf}
@@ -51,7 +51,7 @@ export default function ProgressPage() {
             <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest block mb-1">
               Weight Trend
             </span>
-            <span className="text-2xl font-extrabold text-white">
+            <span className="text-2xl font-extrabold text-foreground">
               {latestEntry.weight}{" "}
               <span className="text-sm font-semibold text-muted-foreground">
                 kg
@@ -128,20 +128,20 @@ export default function ProgressPage() {
 
       {/* Monthly Comparison */}
       <div className="bg-card border border-border rounded-3xl p-5 mb-6">
-        <h3 className="text-sm font-bold text-white mb-4">Monthly Comparison</h3>
+        <h3 className="text-sm font-bold text-foreground mb-4">Monthly Comparison</h3>
         <div className="grid grid-cols-3 gap-3 text-center">
           <div className="bg-secondary/30 rounded-2xl p-3">
             <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-wider block mb-1">
               Last Month
             </span>
-            <span className="text-lg font-extrabold text-white">83.1</span>
+            <span className="text-lg font-extrabold text-foreground">83.1</span>
             <span className="text-xs text-muted-foreground block">kg</span>
           </div>
           <div className="bg-primary/10 rounded-2xl p-3 border border-primary/20">
             <span className="text-[10px] text-primary font-bold uppercase tracking-wider block mb-1">
               This Month
             </span>
-            <span className="text-lg font-extrabold text-white">82.5</span>
+            <span className="text-lg font-extrabold text-foreground">82.5</span>
             <span className="text-xs text-primary block">kg</span>
           </div>
           <div className="bg-secondary/30 rounded-2xl p-3">
@@ -157,7 +157,7 @@ export default function ProgressPage() {
       {/* Transformation Timeline */}
       <div className="bg-card border border-border rounded-3xl p-5 relative overflow-hidden group">
         <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-3xl -mr-10 -mt-10" />
-        <h3 className="text-lg font-bold text-white mb-2 relative z-10">
+        <h3 className="text-lg font-bold text-foreground mb-2 relative z-10">
           Physique Evolution
         </h3>
         <p className="text-sm text-muted-foreground mb-4 relative z-10">
